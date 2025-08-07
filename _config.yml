@@ -1,0 +1,102 @@
+# Site settings
+title: Atrajit Sarkar - Tech Portfolio
+email: atrajit.sarkar@gongobongo.org
+description: >-
+  Where Math Meets Code ✨ | IIT Delhi MSc Mathematics | Full-Stack Developer & Researcher
+  Building systems with soul - from Jetpack Compose Android apps to backend automations
+baseurl: "" # Only if using project site, leave empty for personal site
+url: "https://atrajit-sarkar.gongobongo.org"
+
+# Author information
+author:
+  name: Atrajit Sarkar
+  email: atrajit.sarkar@gongobongo.org
+  linkedin: https://www.linkedin.com/in/atrajit-sarkar-1729xxx1729/
+  github: https://github.com/atrajit-sarkar
+  twitter: https://x.com/AtrajitSarkar
+  tagline: "Mathematician | Developer | Poet"
+  subtitle: "Theory Meets Practice In My Lab"
+  bio: >-
+    IIT Delhi alumnus (MSc Mathematics) with a flair for Analysis, Number Theory, and Algebra.
+    I build systems: from Jetpack Compose Android apps to backend automations in Python and beyond.
+    Logic-first, aesthetics-always — whether I'm crafting an algorithm or a poem.
+
+# Tech Stack
+tech_stack:
+  languages: ["Python", "C++", "Java", "JavaScript", "TypeScript"]
+  frameworks: ["React", "Next.js", "Jetpack Compose", "Android Studio"]
+  tools: ["Git", "Docker", "Linux", "MongoDB", "SQLite", "VS Code", "Figma"]
+  styling: ["HTML", "CSS", "Tailwind CSS"]
+  focus_areas: ["Full-Stack Development", "Mobile App Development", "AI/ML Integration", "3D Simulations"]
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:title/
+
+# Kramdown settings for math
+kramdown:
+  math_engine: mathjax
+  input: GFM
+  syntax_highlighter: rouge
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+    icon: "home"
+  - title: About
+    url: /about/
+    icon: "user"
+  - title: Tech Stack
+    url: /tech-stack/
+    icon: "code"
+  - title: Projects
+    url: /projects/
+    icon: "folder"
+  - title: Education
+    url: /education/
+    icon: "graduation-cap"
+  - title: Achievements
+    url: /achievements/
+    icon: "trophy"
+  - title: Blog
+    url: /posts/
+    icon: "edit"
+  - title: Contact
+    url: /contact/
+    icon: "mail"
+
+# Theme settings
+theme_color: "#2c3e50"
+accent_color: "#3498db"
+
+# Social links
+social:
+  github: atrajit-sarkar
+  linkedin: atrajit-sarkar-1729xxx1729
+  twitter: AtrajitSarkar
+  email: atrajit.sarkar@gongobongo.org
+
+# Plugin settings
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
