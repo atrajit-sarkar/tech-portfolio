@@ -64,6 +64,29 @@
     --glass-bg: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.2);
     --glass-backdrop: blur(10px);
+    
+    /* Table Colors */
+    --table-bg: #ffffff;
+    --table-header-bg: #f8fafc;
+    --table-header-text: #1e293b;
+    --table-border: #e2e8f0;
+    --table-stripe: #f8fafc;
+    --table-hover: #f1f5f9;
+    
+    /* Code Block Colors */
+    --code-bg: #1e293b;
+    --code-text: #e2e8f0;
+    --code-border: #334155;
+    
+    /* Pre Block Colors */
+    --pre-bg: #1e293b;
+    --pre-text: #e2e8f0;
+    --pre-border: #334155;
+    
+    /* Blockquote Colors */
+    --blockquote-bg: #f8fafc;
+    --blockquote-text: #475569;
+    --blockquote-border: #06b6d4;
 }
 
 /* Dark theme variables */
@@ -92,6 +115,29 @@
     /* Glass morphism for dark */
     --glass-bg: rgba(15, 23, 42, 0.7);
     --glass-border: rgba(99, 102, 241, 0.3);
+    
+    /* Table Colors Dark */
+    --table-bg: #1e293b;
+    --table-header-bg: #334155;
+    --table-header-text: #f1f5f9;
+    --table-border: #475569;
+    --table-stripe: #334155;
+    --table-hover: #475569;
+    
+    /* Code Block Colors Dark */
+    --code-bg: #0f172a;
+    --code-text: #e2e8f0;
+    --code-border: #1e293b;
+    
+    /* Pre Block Colors Dark */
+    --pre-bg: #0f172a;
+    --pre-text: #e2e8f0;
+    --pre-border: #1e293b;
+    
+    /* Blockquote Colors Dark */
+    --blockquote-bg: #1e293b;
+    --blockquote-text: #cbd5e1;
+    --blockquote-border: #06b6d4;
 }
 
 /* Reset and base styles */
@@ -2318,26 +2364,41 @@ table {
     border-collapse: collapse;
     margin: 2rem 0;
     background: var(--table-bg);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     overflow: hidden;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--table-border);
+    font-size: 0.95rem;
 }
 
 table th {
     background: var(--table-header-bg);
     color: var(--table-header-text);
-    padding: 1rem;
+    padding: 1rem 1.25rem;
     text-align: left;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--table-border);
+    position: relative;
+}
+
+table th:not(:last-child) {
+    border-right: 1px solid var(--table-border);
 }
 
 table td {
-    padding: 1rem;
+    padding: 1rem 1.25rem;
     border-bottom: 1px solid var(--table-border);
     vertical-align: top;
-    line-height: 1.5;
-    color: var(--text-color);
+    line-height: 1.6;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+}
+
+table td:not(:last-child) {
+    border-right: 1px solid var(--table-border);
 }
 
 table tr:last-child td {
@@ -2346,6 +2407,143 @@ table tr:last-child td {
 
 table tr:nth-child(even) {
     background-color: var(--table-stripe);
+}
+
+table tr:hover {
+    background-color: var(--table-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table responsive wrapper */
+.table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+}
+
+.table-wrapper table {
+    margin: 0;
+    min-width: 600px;
+}
+
+/* Table icons and badges */
+table td strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+table td code {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+}
+
+/* Enhanced visibility for links in tables */
+table a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+table a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Emoji styling */
+.emoji {
+    font-style: normal;
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+
+/* Code block improvements for mobile */
+@media (max-width: 768px) {
+    pre {
+        padding: 1rem;
+        font-size: 0.8rem;
+        margin: 1rem 0;
+        border-radius: var(--border-radius-sm);
+    }
+    
+    table {
+        font-size: 0.875rem;
+    }
+    
+    table th,
+    table td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    blockquote {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    blockquote p {
+        margin-left: 1.5rem;
+    }
+}
+
+/* Better focus states for accessibility */
+pre:focus,
+table:focus,
+blockquote:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Syntax highlighting improvements */
+.highlight {
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.highlight pre {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+}
+
+/* Details/Summary styling for FAQ */
+details {
+    margin: 1rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+}
+
+summary {
+    padding: 1rem;
+    background: var(--bg-secondary);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    user-select: none;
+}
+
+summary:hover {
+    background: var(--table-hover);
+}
+
+details[open] summary {
+    border-bottom: 1px solid var(--border-color);
+    background: var(--primary-color);
+    color: white;
+}
+
+details[open] > div {
+    padding: 1rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 table tr:hover {
@@ -2378,20 +2576,41 @@ table tr:hover {
 /* Blockquotes */
 blockquote {
     margin: 1.5rem 0;
-    padding: 1rem 1.5rem;
-    border-left: 4px solid var(--secondary-color);
-    background: var(--bg-secondary);
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--blockquote-border);
+    background: var(--blockquote-bg);
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
     font-style: italic;
-    color: var(--text-muted);
+    color: var(--blockquote-text);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--blockquote-border);
+    position: relative;
+}
+
+blockquote::before {
+    content: "💡";
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0.75rem;
+    top: 0.5rem;
+    opacity: 0.7;
 }
 
 blockquote p {
     margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-left: 2rem;
 }
 
 blockquote p:last-child {
     margin-bottom: 0;
+}
+
+blockquote strong {
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
 /* Code blocks and inline code */
@@ -2408,19 +2627,45 @@ code {
 pre {
     background: var(--pre-bg);
     border: 1px solid var(--pre-border);
-    border-radius: var(--border-radius);
-    padding: 1rem;
+    border-radius: var(--border-radius-md);
+    padding: 1.25rem;
     overflow-x: auto;
     margin: 1.5rem 0;
-    line-height: 1.4;
+    line-height: 1.5;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--pre-text);
+    box-shadow: var(--shadow-sm);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 pre code {
     background: none;
     border: none;
     padding: 0;
-    font-size: 0.9rem;
-    color: var(--pre-text);
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
+    display: block;
+    width: 100%;
+}
+
+/* Inline code styling */
+code {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    border: 1px solid var(--code-border);
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 /* Lists */
