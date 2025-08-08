@@ -3,3 +3,13 @@ layout: default
 ---
 
 {{ content }}
+
+{% if site.adsense.enabled and site.adsense.home_slot_id %}
+<section class="home-ad-section">
+	<div class="container">
+		<div class="ad-wrap ad-wrap--home">
+			{% include adsense-inarticle.html slot_id=site.adsense.home_slot_id %}
+		</div>
+	</div>
+	</section>
+{% endif %}

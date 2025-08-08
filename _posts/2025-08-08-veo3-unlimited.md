@@ -181,6 +181,6 @@ This offer is typically limited to one per student. Check Google's terms for spe
 
 ---
 
-*Last updated: August 8, 2025 | Guide Version: 2.0*
+*Last updated: August 8, 2025 \| Guide Version: 2.0* 
 
 **Tags:** `#GoogleVeo3` `#AIVideo` `#StudentOffer` `#TechGuide` `#FreeAccess`

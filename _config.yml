@@ -90,6 +90,14 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: page
+
 # Exclude from processing
 exclude:
   - README.md
@@ -100,3 +108,10 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+
+# Google AdSense (update IDs to enable)
+adsense:
+  enabled: true
+  publisher_id: "ca-pub-xxxxxxxxxxxxxxxx" # TODO: replace with your AdSense publisher ID
+  post_slot_id: "0000000000"            # TODO: replace with your in-article ad unit ID for posts
+  home_slot_id: "0000000000"            # TODO: replace with your in-article ad unit ID for home page

@@ -11,6 +11,11 @@ layout: default
     </header>
     
     <div class="page-body">
+        {% if site.adsense.enabled and site.adsense.post_slot_id and page.collection == 'posts' %}
+        <div class="ad-wrap ad-wrap--top">
+            {% include adsense-inarticle.html slot_id=site.adsense.post_slot_id %}
+        </div>
+        {% endif %}
         {{ content }}
     </div>
 </article>
