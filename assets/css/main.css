@@ -3128,12 +3128,15 @@ input[type="checkbox"] {
         left: -100%;
         top: 100px;
         flex-direction: column;
-        background-color: white;
+        background-color: var(--bg-primary);
         width: 100%;
         text-align: center;
         transition: 0.3s;
-        box-shadow: var(--shadow);
+        box-shadow: var(--shadow-lg);
         padding: 2rem 0;
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
     
     .nav-items {
@@ -3307,10 +3310,6 @@ input[type="checkbox"] {
 [data-theme="dark"] .nav-dropdown-content {
     background: var(--bg-color);
     border: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .nav-menu {
-    background-color: var(--bg-color);
 }
 
 [data-theme="dark"] .link-card {
