@@ -46,6 +46,8 @@
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.publisher_id }}" crossorigin="anonymous"></script>
     {% endif %}
+
+    {% include monetag.html %}
 </head>
 <body class="{% if page.layout == 'home' or page.url == '/' %}home{% else %}page{% endif %}">
     <!-- Theme Toggle Button -->

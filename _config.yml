@@ -111,7 +111,13 @@ exclude:
 
 # Google AdSense (update IDs to enable)
 adsense:
-  enabled: true
+  enabled: false
   publisher_id: "ca-pub-xxxxxxxxxxxxxxxx" # TODO: replace with your AdSense publisher ID
   post_slot_id: "0000000000"            # TODO: replace with your in-article ad unit ID for posts
   home_slot_id: "0000000000"            # TODO: replace with your in-article ad unit ID for home page
+
+# Monetag (Multitag) configuration
+monetag:
+  enabled: true
+  script_url: "https://fpyf8.com/88/tag.min.js"
+  zone_id: "162127"

@@ -1,0 +1,3 @@
+{% if site.monetag.enabled and site.monetag.script_url and site.monetag.zone_id %}
+<script src="{{ site.monetag.script_url }}" data-zone="{{ site.monetag.zone_id }}" async data-cfasync="false"></script>
+{% endif %}
