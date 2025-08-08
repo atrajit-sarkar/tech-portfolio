@@ -170,94 +170,42 @@ layout: home
 </section>
 
 <!-- About Section -->
-<section class="about-section" id="about">
-    <div class="container">
-        <div class="about-content">
-            <div class="about-text">
-                <h2 class="section-title">
-                    <span class="section-emoji">🌌</span>
-                    About Me
-                </h2>
-                <div class="about-description">
-                    <p>
-                        <strong>IIT Delhi alumnus</strong> (MSc Mathematics) with a deep passion for Analysis, Number Theory, and Algebra. 
-                        I believe in the beautiful intersection where mathematical rigor meets practical software engineering.
-                    </p>
-                    <p>
-                        Currently building innovative applications using <strong>Jetpack Compose</strong>, creating 
-                        <strong>C++ 3D simulations</strong>, developing intelligent <strong>Telegram/WhatsApp bots</strong>, 
-                        and integrating <strong>Gemini AI</strong> into real-world solutions.
-                    </p>
-                    <p>
-                        Beyond code, I'm the author of <em>"Silhouette of Words"</em> — a literary work that blends 
-                        philosophy with logic, exploring the emotional nuances of both English and Bengali poetry.
-                    </p>
-                </div>
-                
-                <div class="about-highlights">
-                    <div class="highlight-item">
-                        <span class="highlight-icon">🎓</span>
-                        <div>
-                            <h4>Academic Excellence</h4>
-                            <p>MSc Mathematics from IIT Delhi</p>
-                        </div>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-icon">💻</span>
-                        <div>
-                            <h4>Full-Stack Development</h4>
-                            <p>Mobile apps to backend systems</p>
-                        </div>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-icon">✍️</span>
-                        <div>
-                            <h4>Creative Writing</h4>
-                            <p>Author & bilingual poet</p>
-                        </div>
-                    </div>
-                    <div class="highlight-item">
-                        <span class="highlight-icon">👨‍🏫</span>
-                        <div>
-                            <h4>Teaching</h4>
-                            <p>Making complex math intuitive</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="about-visual">
-                <div class="math-equation">
-                    <div class="equation-line">
-                        <span class="equation-text">$\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}$</span>
-                    </div>
-                    <div class="equation-line">
-                        <span class="equation-text">$e^{i\pi} + 1 = 0$</span>
-                    </div>
-                    <div class="equation-line">
-                        <span class="equation-text">$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$</span>
-                    </div>
-                </div>
-                <div class="code-snippet">
-                    <div class="code-header">
-                        <span class="code-lang">Python</span>
-                        <div class="code-dots">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div>
-                    <div class="code-content">
-                        <code>
-def fibonacci(n):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if n <= 1:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return n<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return fibonacci(n-1) + fibonacci(n-2)
-                        </code>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<article class="page-content page-content--embedded">
+    <div class="page-body" markdown="1">
+
+## 🌌 About Me {#about}
+
+I’m an **IIT Delhi alumnus** (MSc Mathematics) with a deep passion for **Analysis, Number Theory, and Algebra**. I love the intersection where mathematical rigor meets practical software engineering.
+
+Currently, I’m building innovative applications with **Jetpack Compose**, crafting **C++ 3D simulations**, developing intelligent **Telegram/WhatsApp bots**, and integrating **Gemini AI** into real-world solutions.
+
+Beyond code, I’m the author of _“Silhouette of Words”_ — a literary work blending philosophy with logic, exploring emotional nuances in both English and Bengali poetry.
+
+### Highlights
+- 🎓 **Academic Excellence** — MSc Mathematics from IIT Delhi
+- 💻 **Full-Stack Development** — Mobile apps to backend systems
+- ✍️ **Creative Writing** — Author & bilingual poet
+- 👨‍🏫 **Teaching** — Making complex math intuitive
+
+### Favorite Equations
+
+- $\int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}$
+
+- $e^{i\pi} + 1 = 0$
+
+- $\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$
+
+### Sample Code (Python)
+
+```python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+```
+
+</div>
+</article>
 
 <!-- GitHub Stats Section -->
 <section class="github-stats-section">
