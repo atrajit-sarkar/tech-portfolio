@@ -2518,13 +2518,14 @@ blockquote:focus {
 .highlight {
     border-radius: var(--border-radius-md);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
 }
 
 .highlight pre {
     margin: 0;
     border: none;
     border-radius: 0;
+    box-shadow: none;
+    background: transparent;
 }
 
 /* Details/Summary styling for FAQ (theme-aware) */
@@ -2647,9 +2648,9 @@ code {
     border: 1px solid var(--code-border);
 }
 
-pre {
+/* Standalone pre blocks (not inside highlight wrapper) */
+pre:not(.highlight pre) {
     background: var(--pre-bg);
-    border: 1px solid var(--pre-border);
     border-radius: var(--border-radius-md);
     padding: 1.25rem;
     overflow-x: auto;
@@ -2658,11 +2659,29 @@ pre {
     font-family: var(--font-mono);
     font-size: 0.875rem;
     color: var(--pre-text);
-    box-shadow: var(--shadow-sm);
     white-space: pre-wrap;
     word-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
+}
+
+/* Pre blocks inside highlight wrapper (syntax highlighted) */
+.highlight pre {
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 0;
+    line-height: 1.5;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--pre-text);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+    border: none;
+    border-radius: var(--border-radius-md);
+    box-shadow: none;
+    background: var(--pre-bg);
 }
 
 pre code {
