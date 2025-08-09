@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Posts
-subtitle: Mathematical Insights & Thoughts
+subtitle: Technology Insights & Thoughts
 permalink: /posts/
 ---
 
