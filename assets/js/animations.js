@@ -385,68 +385,68 @@ function initializeCodeBlocks() {
 
 // Extract language from markdown context by looking for ```language pattern
 function extractLanguageFromContext(preElement, codeElement) {
-    // Strategy 1: Look in the page source for the markdown pattern
+    // Strategy 1: Check for language class on <code>, its parent <pre>, or ancestor wrappers (Jekyll/Rouge structure)
     let language = 'text';
-    
-    // Get the page content to search for markdown patterns
-    const pageContent = document.body.innerHTML;
     const codeContent = codeElement.textContent.trim();
-    
-    // Create a regex to find ```language followed by the code content
-    // We'll look for the pattern: ```(language) followed by this exact code
-    const escapedCode = codeContent.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').substring(0, 50); // First 50 chars for matching
-    
-    // Look for ```language pattern before this code block
-    const markdownPattern = new RegExp('```(\\w+)[\\s\\S]*?' + escapedCode.substring(0, 20), 'i');
-    const match = pageContent.match(markdownPattern);
-    
-    if (match) {
-        language = match[1];
-        console.log('Found language from markdown pattern:', language);
-    } else {
-        // Strategy 2: Look at the previous text content for language hints
-        let element = preElement.previousElementSibling;
-        let searchText = '';
-        
-        // Search backwards through siblings for language indicators
-        while (element && searchText.length < 200) {
-            if (element.textContent) {
-                searchText = element.textContent + ' ' + searchText;
-            }
-            element = element.previousElementSibling;
+
+    function extractFromClassList(el) {
+        if (!el || !el.classList) return null;
+        for (const cls of el.classList) {
+            let m = cls.match(/^language-([\w\d\+\#]+)/i) || cls.match(/^lang-([\w\d\+\#]+)/i);
+            if (m) return m[1].toLowerCase();
+            // Rouge sometimes uses just the language name as a class on <code>
+            const known = ['bash','shell','sh','python','javascript','js','json','html','css','yaml','yml','ini','conf','text','plaintext','cpp','c','java','sql','typescript','ts'];
+            if (known.includes(cls.toLowerCase())) return cls.toLowerCase();
         }
-        
-        // Look for language mentions like "Python -", "JavaScript:", "CSS -", etc.
-        const languageHints = [
-            { pattern: /python[\s\-:]/i, lang: 'python' },
-            { pattern: /javascript[\s\-:]/i, lang: 'javascript' },
-            { pattern: /css[\s\-:]/i, lang: 'css' },
-            { pattern: /html[\s\-:]/i, lang: 'html' },
-            { pattern: /json[\s\-:]/i, lang: 'json' },
-            { pattern: /c\+\+[\s\-:]/i, lang: 'cpp' },
-            { pattern: /java[\s\-:]/i, lang: 'java' },
-            { pattern: /bash[\s\-:]/i, lang: 'bash' },
-            { pattern: /shell[\s\-:]/i, lang: 'bash' },
-            { pattern: /sql[\s\-:]/i, lang: 'sql' },
-            { pattern: /yaml[\s\-:]/i, lang: 'yaml' },
-            { pattern: /typescript[\s\-:]/i, lang: 'typescript' }
-        ];
-        
-        for (const hint of languageHints) {
-            if (hint.pattern.test(searchText)) {
-                language = hint.lang;
-                console.log('Found language from context hint:', language);
-                break;
-            }
+        return null;
+    }
+
+    const direct = extractFromClassList(codeElement) || extractFromClassList(preElement) || extractFromClassList(codeElement.closest('[class*="language-"]')) || extractFromClassList(codeElement.closest('.highlight'));
+    if (direct) {
+        language = direct;
+        if (language === 'sh' || language === 'shell') language = 'bash';
+        if (language === 'plaintext' || language === 'text') language = 'text';
+        if (language === 'yml') language = 'yaml';
+        console.log('Found language from class hierarchy:', language);
+        return language;
+    }
+
+    // Strategy 2: Look at the previous text content for language hints (nearby headings / list items)
+    let element = preElement.previousElementSibling;
+    let searchText = '';
+    while (element && searchText.length < 200) {
+        if (element.textContent) {
+            searchText = element.textContent + ' ' + searchText;
         }
-        
-        // Strategy 3: Analyze code content for language-specific patterns
-        if (language === 'text') {
-            language = detectLanguageFromCode(codeContent);
-            console.log('Detected language from code analysis:', language);
+        element = element.previousElementSibling;
+    }
+    const languageHints = [
+        { pattern: /python[\s\-:]/i, lang: 'python' },
+        { pattern: /javascript[\s\-:]/i, lang: 'javascript' },
+        { pattern: /css[\s\-:]/i, lang: 'css' },
+        { pattern: /html[\s\-:]/i, lang: 'html' },
+        { pattern: /json[\s\-:]/i, lang: 'json' },
+        { pattern: /c\+\+[\s\-:]/i, lang: 'cpp' },
+        { pattern: /java[\s\-:]/i, lang: 'java' },
+        { pattern: /bash[\s\-:]/i, lang: 'bash' },
+        { pattern: /shell[\s\-:]/i, lang: 'bash' },
+        { pattern: /sql[\s\-:]/i, lang: 'sql' },
+        { pattern: /yaml|yml[\s\-:]/i, lang: 'yaml' },
+        { pattern: /typescript|\bts\b[\s\-:]/i, lang: 'typescript' },
+        { pattern: /ini[\s\-:]/i, lang: 'ini' },
+        { pattern: /conf[\s\-:]/i, lang: 'conf' },
+        { pattern: /plaintext|text[\s\-:]/i, lang: 'text' }
+    ];
+    for (const hint of languageHints) {
+        if (hint.pattern.test(searchText)) {
+            language = hint.lang;
+            console.log('Found language from context hint:', language);
+            return language;
         }
     }
-    
+    // Strategy 3: Analyze code content for language-specific patterns & heuristics
+    language = detectLanguageFromCode(codeContent);
+    console.log('Detected language from code analysis:', language);
     return language;
 }
 
@@ -460,8 +460,12 @@ function detectLanguageFromCode(code) {
         { regex: /<\w+[^>]*>|<\/\w+>|<!DOCTYPE/i, lang: 'html' },
         { regex: /\{[^}]*:[^}]*\}|"[\w-]+"\s*:/i, lang: 'json' },
         { regex: /--[\w-]+:|:root\s*{|\.[\w-]+\s*{|@media/i, lang: 'css' },
-        { regex: /echo\s+|ls\s+|cd\s+|mkdir\s+|\$\w+/i, lang: 'bash' },
-        { regex: /SELECT\s+|FROM\s+|WHERE\s+|INSERT\s+INTO/i, lang: 'sql' }
+        { regex: /(^|\n)\s*(sudo\s+)?(apt|yum|dnf|pacman)\s+|sudo\s+systemctl\s+|#!/i, lang: 'bash' },
+        { regex: /(^|\n)\s*echo\s+|(^|\n)\s*ls\s+|(^|\n)\s*cd\s+|(^|\n)\s*mkdir\s+|\$\w+/i, lang: 'bash' },
+        { regex: /SELECT\s+|FROM\s+|WHERE\s+|INSERT\s+INTO/i, lang: 'sql' },
+        { regex: /(\[[^\]]+\]\s*\n)|(^[A-Za-z0-9_.-]+\s*=\s*[^\n]+)/m, lang: 'ini' },
+        { regex: /(acl\s+\w+|http_access|visible_hostname)/i, lang: 'conf' },
+        { regex: /(---|\.\.\.)\n[\s\S]*?:\s|^\s*\w+:\s*$/m, lang: 'yaml' }
     ];
     
     for (const pattern of patterns) {
@@ -470,7 +474,7 @@ function detectLanguageFromCode(code) {
         }
     }
     
-    return 'text';
+    return 'text'; // fallback
 }
 
 // Create code block header with language indicator and copy button
