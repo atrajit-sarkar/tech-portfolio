@@ -308,6 +308,59 @@ window.addEventListener('load', function() {
     window.scrollTo(0, 0);
 });
 
+// ================================
+// HERO CURSOR GLOW EFFECT (added)
+// ================================
+function initHeroCursorGlow() {
+    const hero = document.querySelector('.hero-section');
+    if (!hero) return;
+    if (document.querySelector('.custom-cursor-glow')) return;
+
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor-glow';
+    cursor.style.cssText = `
+        position: fixed;
+        width: 24px;
+        height: 24px;
+        background: radial-gradient(circle, rgba(99,102,241,0.85) 0%, rgba(99,102,241,0.25) 55%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: screen;
+        transition: transform 0.15s ease, background 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+        filter: drop-shadow(0 0 6px rgba(99,102,241,0.6));
+    `;
+    document.body.appendChild(cursor);
+
+    const activate = () => { cursor.style.opacity = '1'; };
+    const deactivate = () => { cursor.style.opacity = '0'; };
+    const move = (e) => {
+        cursor.style.left = (e.clientX - 12) + 'px';
+        cursor.style.top = (e.clientY - 12) + 'px';
+    };
+
+    hero.addEventListener('mouseenter', activate);
+    hero.addEventListener('mouseleave', deactivate);
+    hero.addEventListener('mousemove', move);
+
+    const interactive = hero.querySelectorAll('a, button, .btn, .hero-image');
+    interactive.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'scale(2)';
+            cursor.style.background = 'radial-gradient(circle, rgba(245,158,11,0.9) 0%, rgba(245,158,11,0.25) 55%, transparent 70%)';
+            cursor.style.filter = 'drop-shadow(0 0 8px rgba(245,158,11,0.7))';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'scale(1)';
+            cursor.style.background = 'radial-gradient(circle, rgba(99,102,241,0.85) 0%, rgba(99,102,241,0.25) 55%, transparent 70%)';
+            cursor.style.filter = 'drop-shadow(0 0 6px rgba(99,102,241,0.6))';
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initHeroCursorGlow);
+
 // Lazy loading for images
 if ('IntersectionObserver' in window) {
     const imageObserver = new IntersectionObserver((entries, observer) => {
